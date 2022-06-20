@@ -1,10 +1,10 @@
 package com.mycom.redislock.service;
 
+import com.mycom.redislock.config.MyProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.jic.hrois.common.core.constant.ServiceNameConstants.FINANCE_SERVICE;
 
 /**
  * @author ：songdalin
@@ -16,6 +16,9 @@ import static com.jic.hrois.common.core.constant.ServiceNameConstants.FINANCE_SE
 @Slf4j
 @Component
 public class RedisLockUtil {
+
+	@Autowired
+	private MyProperties myProperties;
 
 	/**
 	 * 订单锁定、解锁 key 头部信息
@@ -36,6 +39,10 @@ public class RedisLockUtil {
 	 * @return
 	 */
 	public synchronized boolean lock(String key) {
+		if (myProperties.getEnable() == null || myProperties.getEnable() == false) {
+			System.out.println("未开启锁，加锁失败，请配置。。。。。。。");
+			return false;
+		}
 		if (redisOpsUtil.setNx(key, ORDER_LOCK_EXPIRE_TIME)) {
 			log.info("订单：{} 成功加锁", key);
 			return true;

@@ -53,6 +53,13 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!-- 自定义starter测试 -->
+        <dependency>
+            <groupId>com.mycom</groupId>
+            <artifactId>redis-lock-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

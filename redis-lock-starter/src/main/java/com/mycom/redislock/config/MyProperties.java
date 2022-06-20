@@ -1,5 +1,6 @@
 package com.mycom.redislock.config;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
@@ -10,8 +11,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @modified By：
  * @version: 1.0
  */
+@Data
 @EnableConfigurationProperties(MyProperties.class)
 @ConfigurationProperties(prefix = "redis-lock")
 public class MyProperties {
-    private String name;
+    private Boolean enable;
 }

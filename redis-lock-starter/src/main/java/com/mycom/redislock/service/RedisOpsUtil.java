@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static com.jic.hrois.common.core.constant.ServiceNameConstants.FINANCE_SERVICE;
 
 /**
  * @author ：songdalin
@@ -45,7 +43,7 @@ public class RedisOpsUtil {
 	 * @param expire 过期时间 单位 秒
 	 * @param value
 	 */
-	public void addElement2Set(@NotNull String key, long expire, @NotNull String... value) {
+	public void addElement2Set( String key, long expire,  String... value) {
 		redisTemplate.opsForSet().add(key, value);
 		expireByKey(key, expire);
 	}
@@ -56,7 +54,7 @@ public class RedisOpsUtil {
 	 * @param key
 	 * @return
 	 */
-	public Set<String> getSet(@NotNull String key) {
+	public Set<String> getSet( String key) {
 		return redisTemplate.opsForSet().members(key);
 	}
 

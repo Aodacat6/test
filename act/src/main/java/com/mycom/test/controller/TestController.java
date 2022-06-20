@@ -1,5 +1,6 @@
 package com.mycom.test.controller;
 
+import com.mycom.redislock.service.RedisLockUtil;
 import com.mycom.test.entity.MyHolidayRecord;
 import com.mycom.test.mapper.MyHolidayRecordMapper;
 import org.activiti.engine.HistoryService;
@@ -37,9 +38,18 @@ public class TestController {
     @Autowired
     private MyHolidayRecordMapper holidayRecordMapper;
 
+    @Autowired
+    private RedisLockUtil redisLockUtil;
+
     @GetMapping("/hello")
     public String hello () {
         return "hello";
+    }
+
+    @GetMapping("/lock")
+    public String lock () {
+        redisLockUtil.lock("111");
+        return "success";
     }
 
     /**
@@ -56,4 +66,6 @@ public class TestController {
         //final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday");
         return "success";
     }
+
+
 }

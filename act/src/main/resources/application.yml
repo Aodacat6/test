@@ -1,0 +1,17 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.15.207.98:3306/acttest?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: Acdmdb20!
+
+
+  redis:
+    host: 106.15.207.98
+    username: root
+    auth: 12345678Qa!
+
+redis-lock:
+  enable: true
