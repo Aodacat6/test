@@ -1,8 +1,6 @@
 package com.mycom.test.client.impl;
 
 import com.mycom.test.client.NoTest;
-import com.mycom.test.client.TestClient;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
