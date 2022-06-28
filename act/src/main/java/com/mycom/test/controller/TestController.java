@@ -1,8 +1,10 @@
 package com.mycom.test.controller;
 
 import com.mycom.redislock.service.RedisLockUtil;
+import com.mycom.test.client.vo.StudentVo;
 import com.mycom.test.entity.MyHolidayRecord;
 import com.mycom.test.mapper.MyHolidayRecordMapper;
+import com.mycom.test.service.TestService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -41,9 +43,22 @@ public class TestController {
     @Autowired
     private RedisLockUtil redisLockUtil;
 
+    @Autowired
+    private TestService testService;
+
+    @GetMapping("/hello-ser")
+    public String helloSer () {
+        return testService.hhhh();
+    }
+
     @GetMapping("/hello")
     public String hello () {
         return "hello";
+    }
+
+    @GetMapping("/student")
+    public StudentVo get(StudentVo vo, String type) {
+        return vo;
     }
 
     @GetMapping("/lock")
