@@ -1,5 +1,6 @@
 package com.mycom.test.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -21,5 +22,6 @@ public class MyHolidayRecord {
 
     private String name;
 
+    @TableField("process_id")
     private String processId;
 }
