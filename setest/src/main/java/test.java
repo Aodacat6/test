@@ -1,6 +1,10 @@
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,17 +31,22 @@ public class test {
 //        List<Object> list = new ArrayList<>();
 //        list.toArray(new String[0]);
 
-/*        Student1 student1 = new Student1();
+        Student1 student1 = new Student1();
         student1.setName("dd");
+        Student1.Room room = new Student1.Room();
+        room.setId(1);
+        student1.setRooms(Arrays.asList(room));
         Student1 student2 = new Student1();
         student2.setName("dd");
-        for (int i = 0; i < 10; i++) {
+        Student1.Room room2 = new Student1.Room();
+        room.setId(12);
+        student2.setRooms(Arrays.asList(room2));
+        //for (int i = 0; i < 10; i++) {
             System.out.println(student1.hashCode());
             System.out.println(student2.hashCode());
 
-        }*/
-        int a = 1;
-        System.out.println();
+        //}
+
 
     }
 }
@@ -45,4 +54,13 @@ public class test {
 @Data
 class Student1 {
     private String name;
+    private List<Room> rooms;
+
+    @Setter
+    @ToString
+    public static class Room{
+        private Integer id;
+
+    }
 }
+

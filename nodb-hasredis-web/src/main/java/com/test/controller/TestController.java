@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    //@IdempotenceCtrl(intervalTime = 5000)
-    @IdempotenceCtrl
+    @IdempotenceCtrl(intervalTime = 50000, markClass = Para.class)
+    //@IdempotenceCtrl
     @GetMapping("/get")
-    public String get(Para para) {
+    public String get(Para para, String xxd) {
         System.out.println(para.toString());
         System.out.println(para);
         return "success";
