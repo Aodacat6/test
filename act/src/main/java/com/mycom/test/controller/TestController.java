@@ -31,27 +31,14 @@ import java.util.List;
 @RequestMapping("/say")
 public class TestController {
 
-    @Autowired
-    private RuntimeService runtimeService;
 
-    @Autowired
-    private TaskService taskService;
-
-    @Autowired
-    private RepositoryService repositoryService;
-
-    @Autowired
-    private HistoryService historyService;
-
-    @Autowired
-    private MyHolidayRecordMapper holidayRecordMapper;
 
     @Autowired
     private RedisLockUtil redisLockUtil;
 
     @Autowired
     private TestService testService;
-
+/*
     @Transactional(rollbackFor = Exception.class)
     @GetMapping("/get")
     public String getRe() {
@@ -62,9 +49,9 @@ public class TestController {
             return "";
         }
         return "yes";
-    }
+    }*/
 
-    @Transactional(rollbackFor = Exception.class)
+/*    @Transactional(rollbackFor = Exception.class)
     @GetMapping("/add")
     public void setAndWait() throws InterruptedException {
         MyHolidayRecord record = new MyHolidayRecord();
@@ -73,7 +60,7 @@ public class TestController {
         holidayRecordMapper.insert(record);
         Thread.sleep(10000);
         System.out.println("over=============");
-    }
+    }*/
 
 
     @GetMapping("/hello-ser")
@@ -97,20 +84,7 @@ public class TestController {
         return "success";
     }
 
-    /**
-     * 小王发起请假流程
-     *      即开始新流程
-     * @return
-     */
-    @GetMapping("/start")
-    public String startHoliday() {
-        MyHolidayRecord record = new MyHolidayRecord();
-        record.setName("小明");
-        final Integer insert = holidayRecordMapper.insert(record);
-        System.out.println(record.getId());
-        //final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday");
-        return "success";
-    }
+
 
 
 }

@@ -7,7 +7,9 @@
 		<module>redis-lock-starter</module>
 		<module>act</module>
 		<module>setest</module>
-	</modules>
+        <module>nodbweb</module>
+        <module>nodb-hasredis-web</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

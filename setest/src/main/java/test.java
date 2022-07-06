@@ -1,3 +1,5 @@
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,25 @@ public class test {
 
         System.out.println(threadLocal.get());*/
 
-        List<Object> list = new ArrayList<>();
-        list.toArray(new String[0]);
+//        List<Object> list = new ArrayList<>();
+//        list.toArray(new String[0]);
+
+/*        Student1 student1 = new Student1();
+        student1.setName("dd");
+        Student1 student2 = new Student1();
+        student2.setName("dd");
+        for (int i = 0; i < 10; i++) {
+            System.out.println(student1.hashCode());
+            System.out.println(student2.hashCode());
+
+        }*/
+        int a = 1;
+        System.out.println();
 
     }
+}
+
+@Data
+class Student1 {
+    private String name;
 }
