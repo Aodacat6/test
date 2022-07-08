@@ -1,5 +1,6 @@
 package com.mycom.test.controller;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.mycom.test.entity.MyHolidayRecord;
 import com.mycom.test.mapper.MyHolidayRecordMapper;
 import org.activiti.engine.HistoryService;
@@ -7,11 +8,17 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author ：songdalin
@@ -62,6 +69,7 @@ public class ActivitiController {
     }
 
     /**
+     * todo
      * 获取流程信息图，用于前端展示，任务实时状态
      * @param businessKey
      * @return
@@ -70,6 +78,27 @@ public class ActivitiController {
     public String getProcessInfo(@PathVariable("businessKey") String businessKey) {
         //repositoryService.getProcessDefinition();
         return "su";
+    }
+
+    @GetMapping("/compleateTask")
+    public String compleateTask(String processId, String taskType) {
+        final List<Task> tasks = taskService.createTaskQuery().processInstanceId(processId).list();
+        if (CollectionUtil.isEmpty(tasks)) {
+            throw new RuntimeException("找不到任务");
+        }
+        final Optional<Task> optionalTask = tasks.stream().filter(f -> Objects.equals(f.getTaskDefinitionKey(), taskType)).findAny();
+        if (!optionalTask.isPresent()) {
+            throw new RuntimeException("找不到该类型的任务");
+        }
+        //完成当前任务
+        taskService.complete(optionalTask.get().getId());
+        //给下一个任务分配人
+        return "success";
+    }
+
+    public String signalTask(Long processId, String taskType) {
+
+        return "success";
     }
 
 }
