@@ -19,7 +19,7 @@ public class TestController {
 
     @IdempotenceCtrl(intervalTime = 50000, markClass = Para.class)
     //@IdempotenceCtrl
-    @GetMapping("/get")
+    @GetMapping("/gettest")
     public String get(Para para, String xxd) {
         System.out.println(para.toString());
         System.out.println(para);

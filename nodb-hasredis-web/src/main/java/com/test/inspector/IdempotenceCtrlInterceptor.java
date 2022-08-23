@@ -1,16 +1,20 @@
-package com.test.idempotencectrl.aspect;
+package com.test.inspector;
 
+import com.test.idempotencectrl.annotation.IdempotenceCtrl;
+import com.test.util.RedisOpsUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.test.idempotencectrl.annotation.IdempotenceCtrl;
-import com.test.util.RedisOpsUtil;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -23,18 +27,35 @@ import java.util.Optional;
  * @version: 1.0
  */
 @Slf4j
-@Aspect
 @Component
-public class IdempotenceCtrlAspect {
+public class IdempotenceCtrlInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private RedisOpsUtil redisOpsUtil;
+
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		if (handler instanceof HandlerMethod) {
+			HandlerMethod handlerMethod = (HandlerMethod) handler;
+			Method method = handlerMethod.getMethod();
+			IdempotenceCtrl annotation = method.getAnnotation(IdempotenceCtrl.class);
+			if (annotation != null) {
+				final long intervalTime = annotation.intervalTime();
+/*				if (this.CompareAndSetMark(request, annotation)) {
+					throw new BizException(annotation.message());
+				}*/
+			}
+			return true;
+		}
+		return true;
+	}
+
 
 	/**
 	 * 自定义时间内（1s），如果redis中已记录，那么不处理，直接返回
 	 * @return
 	 */
-	@Around("@annotation(idempotenceCtrl)")
+/*	@Around("@annotation(idempotenceCtrl)")
 	public Object pointAround(ProceedingJoinPoint joinPoin, IdempotenceCtrl idempotenceCtrl) throws Throwable {
 		//定义的访问控制时间
 		final long intervalTime = idempotenceCtrl.intervalTime();
@@ -51,38 +72,39 @@ public class IdempotenceCtrlAspect {
 			//注解的方法有多个参数，按配置选中一个标记
 			final Optional<Object> optional = Arrays.stream(joinPoin.getArgs()).filter(f -> f.getClass() == classes[0]).findAny();
 			if (!optional.isPresent()) {
-				throw new RuntimeException("not exists params of type " + classes[0].getName());
+				throw new BizException("not exists params of type " + classes[0].getName());
 			}
 			arg = optional.get();
 		}
 		Signature s = joinPoin.getSignature();
 		MethodSignature ms = (MethodSignature)s;
 		//判断是否被幂等控制
-		if (!CompareAndSetMark(ms.getName(), ms.getMethod().getName(), arg, intervalTime)) {
+		if (!CompareAndSetMark(ms.getName(), arg, intervalTime)) {
 			//不执行方法，直接返回
 			log.info("接口：{} ，参数：{} 幂等校验失败", ms.getName(), arg);
-			return "e";
+			return R.ok();
 		}
 		Object proceed = joinPoin.proceed();
 		return proceed;
-	}
+	}*/
 
 	/**
 	 * 使用 请求方法名 + 请求参数hashcode 做标记。
 	 * 		成功标记的话，返回true
 	 * 		其他失败情况，返回false
-	 * @param methodName
+	 * @param urlPath
+	 * @param requestMethod
 	 * @param arg
 	 * @param intervalTime
 	 * @return
 	 */
-	private boolean CompareAndSetMark(String methodName, String method, Object arg, long intervalTime) {
+	private boolean CompareAndSetMark(String urlPath, String requestMethod, Object arg, long intervalTime) {
 		if (arg == null) {
 			//不处理入参为空的情况，直接放行
 			return true;
 		}
 		//用hashcode做相等判断
-		final String key = RedisOpsUtil.IDEMPOTENCE_CTRL_KEY + methodName + method + arg.hashCode();
+		final String key = "IDEMPOTENCE_CTRL_KEY:" + urlPath + requestMethod + arg.hashCode();
 		if (!redisOpsUtil.existsKey(key)) {
 			synchronized (this) {
 				if (!redisOpsUtil.existsKey(key)) {
@@ -113,5 +135,6 @@ public class IdempotenceCtrlAspect {
 			throw new RuntimeException("@IdempotenceCtrl 注解注解在多参数方法，必须指定一个标记类");
 		}
 	}
+
 
 }

@@ -38,6 +38,9 @@ public class TestController {
 
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private MyHolidayRecordMapper myHolidayRecordMapper;
 /*
     @Transactional(rollbackFor = Exception.class)
     @GetMapping("/get")
@@ -62,6 +65,23 @@ public class TestController {
         System.out.println("over=============");
     }*/
 
+    @GetMapping("/get")
+    public String get() {
+        final Integer integer = myHolidayRecordMapper.selectCount(null);
+        return integer.toString();
+    }
+
+    @Transactional
+    @GetMapping("/add")
+    public String add() throws InterruptedException {
+        myHolidayRecordMapper.selectCount(null);
+        MyHolidayRecord record = new MyHolidayRecord();
+        record.setName("22");
+        //5 m
+        Thread.sleep(5 * 60 * 1000);
+        myHolidayRecordMapper.insert(record);
+        return "success";
+    }
 
     @GetMapping("/hello-ser")
     public String helloSer () {
@@ -84,7 +104,28 @@ public class TestController {
         return "success";
     }
 
+    //@Transactional(rollbackFor = Exception.class)
+    @Transactional
+    @GetMapping("/testDb")
+    public String testDb() {
+     /*   try {
+            MyHolidayRecord record = new MyHolidayRecord();
+            record.setName("tt" + System.currentTimeMillis());
+            myHolidayRecordMapper.insert(record);
+            int i = 1 /0 ;
+            myHolidayRecordMapper.insert(record);
 
+              return "success";
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "false";
+        }*/
+        MyHolidayRecord record = new MyHolidayRecord();
+        record.setName("tt" + System.currentTimeMillis());
+        record.setColumn1("12345678910111213141516");
+        myHolidayRecordMapper.insert(record);
+        return "ss";
+    }
 
 
 }

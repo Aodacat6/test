@@ -24,4 +24,6 @@ public class MyHolidayRecord {
 
     @TableField("process_id")
     private String processId;
+
+    private String column1;
 }

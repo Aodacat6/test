@@ -1,10 +1,13 @@
-package com.mycom.controller;
+package com.mycom.nodbweb.controller;
 
-import com.mycom.client.TestClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.mycom.nodbweb.client.TestClient;
+
+import java.math.BigDecimal;
 
 /**
  * @author ：songdalin
@@ -28,6 +31,15 @@ public class TestController {
     @GetMapping("/feign")
     public String testFeign() {
         return testClient.test();
+    }
+
+    @GetMapping("/test1")
+    public String test1(String param) {
+        StopWatch stopWatch = new StopWatch("method:");
+        stopWatch.start();
+        stopWatch.stop();
+        System.out.println(stopWatch.getId() + " " + stopWatch.getTotalTimeSeconds());
+        return "ss";
     }
 
 

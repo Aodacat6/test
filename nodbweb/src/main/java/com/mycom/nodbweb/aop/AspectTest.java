@@ -1,7 +1,6 @@
-package com.mycom.aop;
+package com.mycom.nodbweb.aop;
 
 import cn.hutool.json.JSONUtil;
-import com.mycom.client.TestClient;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -16,8 +15,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import com.mycom.nodbweb.client.TestClient;
 
 /**
  * @author ：songdalin
@@ -32,8 +31,8 @@ public class AspectTest implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    //@Around("execution(* com.mycom.controller.TestController.test(..)) " )
-    @Around("execution(* com.mycom.client.TestClient.test(..))")
+    //@Around("execution(* com.mycom.nodbweb.controller.TestController.test(..)) " )
+    @Around("execution(* com.mycom.nodbweb.client.TestClient.test(..))")
     public void pointCut(ProceedingJoinPoint joinPoin) throws Exception {
 
         final TestClient bean = applicationContext.getBean(TestClient.class);

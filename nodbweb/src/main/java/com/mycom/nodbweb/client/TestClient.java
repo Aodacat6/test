@@ -1,4 +1,4 @@
-package com.mycom.client;
+package com.mycom.nodbweb.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

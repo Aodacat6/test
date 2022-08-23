@@ -49,7 +49,7 @@ public class GlobalTaskListener implements ActivitiEventListener {
     public void onEvent(ActivitiEvent event) {
         final EventHandler eventHandler = eventHandlerMap.get(event.getType());
         if (eventHandler == null) {
-            //System.out.println("没有配置事件：" + event.getType() + "的监听器");
+            System.out.println("没有配置事件：" + event.getType() + "的监听器");
             return;
         }
         eventHandler.handler(event);

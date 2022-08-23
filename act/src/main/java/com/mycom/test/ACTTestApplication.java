@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 
 
 @ComponentScan(value = "com.mycom")
@@ -14,10 +13,10 @@ import org.springframework.context.annotation.ComponentScans;
 @SpringBootApplication(exclude = {
 		org.activiti.spring.boot.SecurityAutoConfiguration.class,
 		org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class})
-public class TestApplication {
+public class ACTTestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args);
+		SpringApplication.run(ACTTestApplication.class, args);
 	}
 
 }

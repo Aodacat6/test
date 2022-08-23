@@ -7,9 +7,11 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,13 +54,15 @@ public class ActivitiController {
      * @return
      */
     @GetMapping("/start")
-    public String startHoliday() {
+    public String startHoliday(String processDefinitionKey) {
         MyHolidayRecord record = new MyHolidayRecord();
         record.setName("小明");
         final Integer insert = holidayRecordMapper.insert(record);
         System.out.println(record.getId());
         //业务主键id赋值给流程的businessid
-        final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("holiday", record.getId().toString());
+        //processDefinitionKey
+        //    1、holiday   2、receivetask
+        final ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, record.getId().toString());
         if (processInstance == null) {
             return "fail";
         }
@@ -80,6 +84,12 @@ public class ActivitiController {
         return "su";
     }
 
+    /**
+     * 正常过节点
+     * @param processId
+     * @param taskType
+     * @return
+     */
     @GetMapping("/compleateTask")
     public String compleateTask(String processId, String taskType) {
         final List<Task> tasks = taskService.createTaskQuery().processInstanceId(processId).list();
@@ -96,8 +106,22 @@ public class ActivitiController {
         return "success";
     }
 
-    public String signalTask(Long processId, String taskType) {
-
+    /**
+     * receive  task过节点
+     * @param processId
+     * @param taskType
+     * @return
+     */
+    @GetMapping("/signal")
+    public String signalTask(String processId, String taskType) {
+        //receivetask 只在 execution表有数据 ，在task表没数据
+        final Execution execution = runtimeService.createExecutionQuery().processInstanceId(processId)
+                .activityId(taskType).singleResult();
+       if (execution == null) {
+           throw new RuntimeException("no task .............");
+       }
+       //此方法代替了signal
+       runtimeService.trigger( execution.getId());
         return "success";
     }
 
