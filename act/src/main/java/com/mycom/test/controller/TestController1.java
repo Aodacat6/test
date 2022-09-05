@@ -8,6 +8,7 @@ import com.mycom.test.client.vo.StudentVo;
 import com.mycom.test.entity.MyHolidayRecord;
 import com.mycom.test.mapper.MyHolidayRecordMapper;
 import com.mycom.test.service.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -15,6 +16,7 @@ import org.activiti.engine.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +29,10 @@ import java.util.List;
  * @modified By：
  * @version: 1.0
  */
+@Slf4j
 @RestController
 @RequestMapping("/say")
-public class TestController {
+public class TestController1 {
 
 
 
@@ -64,6 +67,27 @@ public class TestController {
         Thread.sleep(10000);
         System.out.println("over=============");
     }*/
+
+    @Transactional
+    @PostMapping("/test-conn")
+    public String testDBCONNECTION() throws InterruptedException {
+        for (int i = 0; i < 100; i++) {
+            new Thread(() -> {
+                try {
+                    int cou = myHolidayRecordMapper.selectCount(null);
+                    log.info(Thread.currentThread() + "xxxxxxxxxx  " + cou);
+                    Thread.sleep(4000);
+                    MyHolidayRecord record = new MyHolidayRecord();
+                    record.setName("tt" + System.currentTimeMillis());
+                    record.setColumn1("123");
+                    myHolidayRecordMapper.insert(record);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        return "ss";
+    }
 
     @GetMapping("/get")
     public String get() {

@@ -18,7 +18,7 @@ import java.math.BigDecimal;
  */
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class TestController2 {
 
     @Autowired
     private TestClient testClient;
