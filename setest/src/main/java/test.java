@@ -3,6 +3,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +41,12 @@ public class test {
  /*       String str = "sdff";
         final String[] split = str.split(",");
         System.out.println(split);*/
-        System.out.println(null instanceof String);
+        //System.out.println(null instanceof String);
+
+        BigDecimal a = new BigDecimal("0");
+        BigDecimal b = new BigDecimal("0.0");
+
+        System.out.println(a.compareTo(b));
 
     /*    int a = 1;
         switch (a) {

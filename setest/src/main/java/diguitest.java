@@ -26,6 +26,8 @@ public class diguitest {
         Di d5 = new Di(4,2,4);
         Di d6 = new Di(4,0,null);
         Di d8 = new Di(4,1,null);
+        Di d9 = new Di(3,1,null);
+
 
 
 
@@ -38,6 +40,7 @@ public class diguitest {
         list.add(d6);
         list.add(d7);
         list.add(d8);
+        list.add(d9);
 
         int i = 0;
 
@@ -67,23 +70,7 @@ public class diguitest {
         }
         return Integer.compare(x, y);
     };
-
-    private static int myComparator(Di o1, Di o2, Function<Di, Integer> keyExtractor) {
-        final Integer x =  keyExtractor.apply(o1);
-        final Integer y =  keyExtractor.apply(o2);
-
-        if (x == null && y != null) {
-            return 1;
-        }
-        if (x != null && y == null) {
-            return -1;
-        }
-        if (x == null && y == null) {
-            return 0;
-        }
-        return Integer.compare(x, y);
-
-    }
+    
 
 
     private static void digui(List<Di> dis, int i) {
