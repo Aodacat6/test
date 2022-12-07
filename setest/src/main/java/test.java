@@ -43,10 +43,14 @@ public class test {
         System.out.println(split);*/
         //System.out.println(null instanceof String);
 
-        BigDecimal a = new BigDecimal("0");
+/*        BigDecimal a = new BigDecimal("0");
         BigDecimal b = new BigDecimal("0.0");
 
-        System.out.println(a.compareTo(b));
+        System.out.println(a.compareTo(b));*/
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
 
     /*    int a = 1;
         switch (a) {

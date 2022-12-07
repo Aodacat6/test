@@ -1,0 +1,6 @@
+spring:
+  redis:
+    host: r-m5ehajfyo56yxx7sof.redis.rds.aliyuncs.com
+    timeout: 5s
+    database: 6 #Redis数据库索引（默认为0）
+    password: bTN4Al3#S20uhWlu

@@ -1,0 +1,36 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: serverB
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    #    url: jdbc:mysql://localhost:3306/acttest?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    #    username: root
+    #    password: root
+    username: hrois
+    password: WvDcWztNDTS9GD9t
+    #url: jdbc:mysql://${MYSQL_HOST:rm-m5e6n92g4gs9085tp.mysql.rds.aliyuncs.com}:${MYSQL_PORT:3306}/${MYSQL_DB:hroisx_finance}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://rm-m5ey71dnp2q3ob6o9.mysql.rds.aliyuncs.com:3306/hroisx_finance?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+    hikari:
+      connection-timeout: 3000
+      idle-timeout: 3000
+      maximum-pool-size: 3
+      max-lifetime: 1800000
+      validation-timeout: 5000
+  cloud:
+    nacos:
+      #discovery:
+      # server-addr: 127.0.0.1:8848
+#      server-addr: 127.0.0.1:8848
+#      namespace: e4e90f45-dd1e-4457-8859-e2c4c127fd1a
+      config:
+        server-addr: 127.0.0.1:8848
+        group: dev
+        namespace: e4e90f45-dd1e-4457-8859-e2c4c127fd1a
+      discovery:
+        group: dev
+        server-addr: 127.0.0.1:8848
+        namespace: e4e90f45-dd1e-4457-8859-e2c4c127fd1a

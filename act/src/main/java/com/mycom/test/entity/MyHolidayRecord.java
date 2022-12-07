@@ -14,7 +14,7 @@ import lombok.Data;
  * @version: 1.0
  */
 @Data
-@TableName("my_holiday_record")
+//@TableName("my_holiday_record")
 public class MyHolidayRecord {
 
     @TableId(type = IdType.AUTO)
