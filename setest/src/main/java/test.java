@@ -88,8 +88,18 @@ public class test {
         //}
        // NumberUtils
 
+
+
+    }
+
+    private boolean get() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("ddd");
+        stringBuffer.toString();
+        return false;
     }
 }
+
 
 @Data
 class Student1 {
