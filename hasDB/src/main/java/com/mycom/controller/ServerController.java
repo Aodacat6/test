@@ -31,6 +31,9 @@ public class ServerController {
     @Autowired
     private TestComp testComp;
 
+    @Autowired
+    private DDDservice ddDservice;
+
     @Value("${server.port}")
     private String port;
 
@@ -113,6 +116,20 @@ public class ServerController {
         Thread.sleep(3 * 60 * 1000);
         return "ss";
     }
+
+    /**
+     *
+     * 没有声明式事务：
+     *
+     *
+     *
+     */
+    //@Transactional
+    @GetMapping("/dos111")
+    public void dos111 () {
+     ddDservice.dos111();
+    }
+
 
     /**
      * mysql 默认是自动提交，即执行一条提交一条

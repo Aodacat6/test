@@ -13,7 +13,8 @@
 		<module>serverB</module>
 		<module>serverC</module>
 		<module>hasDB</module>
-	</modules>
+        <module>es-test</module>
+    </modules>
 	<parent>
 		<groupId>org.mycom</groupId>
 		<artifactId>bom</artifactId>

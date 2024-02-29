@@ -19,6 +19,17 @@
     </properties>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId> &lt;!&ndash; 接口文档：使用最新版本的 Swagger 模型 &ndash;&gt;-->
+<!--            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>-->
+<!--            <version>2.2.0</version>-->
+<!--            <scope>provided</scope> &lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.7.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -36,6 +47,12 @@
             <artifactId>hutool-all</artifactId>
             <version>5.7.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
